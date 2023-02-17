@@ -1,5 +1,8 @@
+<%= render 'layouts/running-text' %>
 <div class="container mt-3">
-  <h1>All lists</h1>
+  <%= render 'layouts/navbar' %>
+  <div class="banner"></div>
+  <h3>All lists</h3>
   <% @lists.each do |list| %>
     <p><%= link_to list.name, list_path(list.id)  %></p>
   <% end %>

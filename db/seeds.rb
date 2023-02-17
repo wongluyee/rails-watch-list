@@ -1,33 +1,77 @@
 require 'open-uri'
 require 'json'
+require 'nokogiri'
+require 'active_support/core_ext/hash'
+# puts 'Cleaning DB...'
+# Movie.destroy_all
+# puts 'DB cleaned!'
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-puts 'Cleaning DB...'
-Movie.destroy_all
-puts 'DB cleaned!'
+# puts 'Creating new movies....'
 
-puts 'Creating new movies....'
+# url = "https://tmdb.lewagon.com/movie/top_rated"
+# movies_serialized = URI.open(url).read
+# movies = JSON.parse(movies_serialized)
+# movies_array = movies['results']
 
-url = "https://tmdb.lewagon.com/movie/top_rated"
-movies_serialized = URI.open(url).read
-movies = JSON.parse(movies_serialized)
-movies_array = movies['results']
+# 10.times do
+#   movies_array.each do |movie|
+#     Movie.create(
+#       title: movie['title'],
+#       overview: movie['overview'],
+#       poster_url: "https://image.tmdb.org/t/p/w500#{movie['poster_path']}",
+#       rating: movie['vote_average']
+#     )
+#   end
+# end
 
-10.times do
-  movies_array.each do |movie|
-    Movie.create(
-      title: movie['title'],
-      overview: movie['overview'],
-      poster_url: "https://image.tmdb.org/t/p/w500#{movie['poster_path']}",
-      rating: movie['vote_average']
-    )
+# puts '10 movies created!'
+
+def scrape_urls
+  # 1. Download the HTML from the page
+  url = 'https://letterboxd.com/luyeewong/films/'
+  serialized_html = URI.open(url).read
+
+  # 2. Parse the HTML
+  html = Nokogiri::HTML.parse(serialized_html)
+
+  # 3. Search and return the urls
+  movie_element = html.search('.film-poster')
+  movie_url = movie_element.each do |element|
+    element.each do |item|
+      item
+    end
   end
+  movie_url
 end
 
-puts '10 movies created!'
+urls = scrape_urls
+p urls
+
+def scrape_movie(url)
+  # 1. Download the HTML from the page
+  serialized_html = URI.open(
+    url,
+    'Accept-Language' => 'en',
+    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
+  ).read
+
+  # 2. Parse the HTML
+  html = Nokogiri::HTML.parse(serialized_html)
+
+  # 3. Search and return the movie data
+  title = html.search('.headline-1').text.strip
+  overview = html.search('.truncate p').text.strip
+  poster = html.search('.film-poster img').attribute('src').value
+
+  js = html.at('script[type="application/ld+json"]').text
+  script_element = JSON[js]
+  rating = script_element['aggregateRating']['ratingValue']
+
+
+  {
+    title: title,
+    overview: overview,
+    poster: poster,
+    rating: rating
+  }
+end

@@ -1,7 +1,10 @@
+<%= render 'layouts/running-text' %>
 <div class="container mt-3">
+  <%= render 'layouts/navbar' %>
   <h1>Add a new list</h1>
   <%= simple_form_for @list do |f| %>
     <%= f.input :name %>
     <%= f.submit class: "btn btn-primary" %>
   <% end %>
+  <%= link_to "Back to lists", lists_path, class: "btn btn-primary mt-3" %>
 </div>
