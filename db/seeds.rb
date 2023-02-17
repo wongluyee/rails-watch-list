@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'json'
 require 'nokogiri'
-require 'active_support/core_ext/hash'
 
 puts 'Cleaning DB...'
 Movie.destroy_all
@@ -27,7 +26,7 @@ end
 
 puts '10 movies created!'
 
-# Maybe try CSV parsing??
+# Maybe try CSV parsing for urls??
 # def scrape_urls
 #   # 1. Download the HTML from the page
 #   url = 'https://letterboxd.com/luyeewong/films/'
