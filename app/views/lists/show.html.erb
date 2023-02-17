@@ -3,21 +3,18 @@
 <div class="container mt-3">
   <h1><%= @list.name %></h1>
   <h5>Movies</h5>
-  <% @list.bookmarks.each do |bookmark| %>
-    <p><%= bookmark.movie.title %></p>
-    <%= image_tag bookmark.movie.poster_url, alt: "poster", height: 300 %>
-  <% end %>
-  <h5>Bookmarks</h5>
-  <ul>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
     <% @list.bookmarks.each do |bookmark| %>
-      <li><%= bookmark.comment %>
-        <%= link_to bookmark_path(bookmark),
-            data: {turbo_method: :delete, turbo_confirm: "Delete #{bookmark.comment}?"} do %>
-          <i class="fa-solid fa-trash-can"></i>
-        <% end %>
-      </li>
+      <div class="col">
+        <div class="card h-100">
+          <%= image_tag bookmark.movie.poster_url, alt: "poster", class: "card-img-top" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= bookmark.movie.title %></h5>
+            <p class="card-text">Rating: <%= bookmark.movie.rating %></p>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
-  <%= link_to "Back to all lists", root_path, class: "btn btn-primary" %>
-  <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+  </div>
+  <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class: "btn btn-primary mt-3 mb-4" %>
 </div>
