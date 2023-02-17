@@ -35,30 +35,27 @@ def scrape_urls
   html = Nokogiri::HTML.parse(serialized_html)
 
   # 3. Search and return the urls
-  movie_element = html.search('.film-poster')
-  movie_url = movie_element.each do |element|
-    element.each do |item|
-      item
-    end
-  end
-  movie_url
+  # movie_element = html.search('.poster-container').text
+  # movie_element
+
+  js = html.at('.poster-container').text
+  script_element = JSON[js]
+  script_element
+  # rating = script_element['aggregateRating']['ratingValue']
 end
 
 urls = scrape_urls
 p urls
 
 def scrape_movie(url)
-  # 1. Download the HTML from the page
   serialized_html = URI.open(
     url,
     'Accept-Language' => 'en',
     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
   ).read
 
-  # 2. Parse the HTML
   html = Nokogiri::HTML.parse(serialized_html)
 
-  # 3. Search and return the movie data
   title = html.search('.headline-1').text.strip
   overview = html.search('.truncate p').text.strip
   poster = html.search('.film-poster img').attribute('src').value
@@ -66,7 +63,6 @@ def scrape_movie(url)
   js = html.at('script[type="application/ld+json"]').text
   script_element = JSON[js]
   rating = script_element['aggregateRating']['ratingValue']
-
 
   {
     title: title,
