@@ -1,8 +1,10 @@
-<div class="d-flex justify-content-between mb-3">
-  <div>
-    <%= link_to 'MovieLists', root_path, class: "navbar-brand" %>
-  </div>
-  <div>
-    <%= link_to 'Add new list', new_list_path, class: "navbar-brand" %>
+<div class="navbar-lewagon">
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= link_to 'MovieLists', root_path, class: "navbar-brand", style: "text-shadow: 1px 1px 0px grey" %>
+    </div>
+    <div>
+      <%= link_to 'Add new list', new_list_path, class: "navbar-brand btn btn-outline-info shadow-sm" %>
+    </div>
   </div>
 </div>

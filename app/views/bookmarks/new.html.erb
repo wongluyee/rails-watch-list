@@ -1,6 +1,6 @@
 <%= render 'layouts/running-text' %>
+<%= render 'layouts/navbar' %>
 <div class="container mt-3">
-  <%= render 'layouts/navbar' %>
   <h1>Add a new bookmark</h1>
   <%= simple_form_for [@list, @bookmark] do |f| %>
     <%= f.input :comment %>
