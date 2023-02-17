@@ -3,13 +3,13 @@
   <%= render 'layouts/navbar' %>
   <h1><%= @list.name %></h1>
   <h5>Movies</h5>
-  <% @bookmarks.each do |bookmark| %>
+  <% @list.bookmarks.each do |bookmark| %>
     <p><%= bookmark.movie.title %></p>
     <%= image_tag bookmark.movie.poster_url, alt: "poster", height: 300 %>
   <% end %>
   <h5>Bookmarks</h5>
   <ul>
-    <% @bookmarks.each do |bookmark| %>
+    <% @list.bookmarks.each do |bookmark| %>
       <li><%= bookmark.comment %>
         <%= link_to bookmark_path(bookmark),
             data: {turbo_method: :delete, turbo_confirm: "Delete #{bookmark.comment}?"} do %>

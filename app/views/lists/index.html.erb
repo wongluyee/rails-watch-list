@@ -1,10 +1,23 @@
 <%= render 'layouts/running-text' %>
 <div class="container mt-3">
   <%= render 'layouts/navbar' %>
-  <div class="banner"></div>
+</div>
+<div class="banner">
+  <h1>Le Wagon brings <strong>tech skills</strong> to <strong>creative people</strong>!</h1>
+  <p>Change your life and learn to code at one of our campuses around the world.</p>
+</div>
+<div class="container mt-3">
   <h3>All lists</h3>
-  <% @lists.each do |list| %>
-    <p><%= link_to list.name, list_path(list.id)  %></p>
-  <% end %>
-  <%= link_to "Create a list", new_list_path, class: "btn btn-primary"  %>
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <%= link_to list_path(list.id) do %>
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+        url(<%= list.photo.attached? ? cl_image_path(list.photo.key) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPQDYau3Hs4-xw1i8jVSUY4BlF4FLmg8lQqg&usqp=CAU' %>)"><%= list.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="container">
+  <%= link_to "Create a list", new_list_path, class: "btn btn-primary mt-3 mb-3"  %>
 </div>
