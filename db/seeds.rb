@@ -20,7 +20,11 @@ def scrape_movie(url)
 
   title = html.search('.headline-1').text.strip
   overview = html.search('.truncate p').text.strip
-  poster = html.search('.film-poster img').attribute('src').value
+  # poster = html.search('.film-poster img').attribute('src').value
+
+  poster_js = html.at('script[type="application/ld+json"]').text
+  poster_script_element = JSON[poster_js]
+  poster = poster_script_element['image']
 
   js = html.at('script[type="application/ld+json"]').text
   script_element = JSON[js]

@@ -5,7 +5,7 @@
   <h5>Movies</h5>
   <div class="row row-cols-1 row-cols-md-2 g-4">
     <% @list.bookmarks.each do |bookmark| %>
-      <div class="col">
+      <div class="col w-25">
         <div class="card">
           <%= image_tag bookmark.movie.poster_url, alt: "poster", class: "card-img-top" %>
           <div class="info d-flex justify-content-between align-items-end">
@@ -13,7 +13,7 @@
               <h5 class="card-title"><%= bookmark.movie.title %></h5>
               <p class="card-text"><%= bookmark.comment %></p>
             </div>
-            <div class="delete-card pe-3 pb-2 h4">
+            <div class="delete-card pe-3 pb-2 h5">
               <%= link_to bookmark_path(bookmark),
             data: {turbo_method: :delete, turbo_confirm: "Delete #{bookmark.comment}?"} do %>
                 <i class="fa-solid fa-trash-can"></i>
