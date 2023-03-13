@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: rails_watch_list_development
+  database: one_db_to_rule_them_all_luyee_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
