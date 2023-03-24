@@ -1,24 +1,5 @@
-# README
+# Movie Watchlist
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple movie watchlist website which you can create a list and add some movies inside the list.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Click here to view the website](https://luyee-watch-list.herokuapp.com/)
